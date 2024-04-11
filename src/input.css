@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap");
+
+body {
+  font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#modal-container.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#modal {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  width: 48%;
+  height: 815px;
+  margin: 130px 45px;
+}
+
+/* Thiết lập kiểu checkbox */
+input[type="checkbox"].form-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #4fd1c5;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Thiết lập kiểu dấu tích */
+
+input[type="checkbox"].form-checkbox:checked::before {
+  content: "\2713";
+  display: block;
+  text-align: center;
+  line-height: 8px;
+  font-size: 8px;
+  color: white;
+}
+
+/* Thiết lập màu nền của checkbox khi được chọn */
+input[type="checkbox"].form-checkbox:checked {
+  background-color: #4fd1c5;
+}
+
+#editableContent {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 0px 2px;
+  position: relative;
+}
+
+#editableContent.editing {
+  border-color: #ccc;
+}
+/* CSS */
+#selectedPriorityIcon {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+}
+
+#priorityDropdown .priorityOption {
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+#priorityDropdown .fa-solid.fa-check {
+  margin-right: 1px;
+  margin-left: 4px;
+  width: 16px;
+}
+
+#date-picker-subtask2::placeholder {
+  color: #000;
+}

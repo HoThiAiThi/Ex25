@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ex25</title>
+    <link rel="stylesheet" href="./public/css/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </head>
+  <body class="bg-custom-gray-bg">
+    <div class="flex flex-row">
+      <!--Sidebar-->
+      <div
+        class="flex flex-col space-y-3 justify-between min-h-screen px-2 bg-custom-gray-bg -full"
+      >
+        <!--logo-->
+        <div class="mt-6 ml-5">
+          <div class="p-2 flex items-center">
+            <img src="./public/images/logo.png" alt="logo" class="w-[16px]" />
+            <h1
+              class="font-Roboto font-bold text-[12px] ml-2 text-custom-gray-dark"
+            >
+              Gooup1 - To Do App
+            </h1>
+          </div>
+        </div>
+        <hr class="ml-4 bg-gray-100 mb-3" />
+
+        <!--menu sidebar-->
+        <div class="flex flex-col flex-auto ml-3">
+          <div
+            class="group p-2 mt-1 flex items-center rounded-lg px-4 cursor-pointer hover:bg-white"
+          >
+            <div
+              class="bg-white group-hover:bg-[#4fd1c5] w-6 h-6 flex items-center justify-center rounded-lg"
+            >
+              <i
+                class="fa-solid fa-plus group-hover:text-white text-[#4fd1c5]"
+              ></i>
+            </div>
+            <span
+              class="tracking-wide font-bold text-[10px] ml-3 text-custom-gray-light"
+              >Add Task</span
+            >
+          </div>
+          <!--Tables-->
+          <div
+            class="p-2 mt-2 flex items-center rounded-xl px-4 bg-white cursor-pointer"
+          >
+            <div
+              class="bg-custom-blue-light rounded-lg w-6 h-6 flex items-center justify-center"
+            >
+              <i class="fa-solid fa-plus text-[#ffffff]"></i>
+            </div>
+            <span
+              class="tracking-wide font-bold text-[10px] ml-3 text-custom-gray-dark"
+              >Inbox</span
+            >
+          </div>
+
+          <!--Account pages-->
+          <p
+            class="p-2 mt-2 flex items-center rounded-md px-4 font-bold font-Roboto uppercase text-[11px] text-custom-gray-dark"
+          >
+            Account Pages
+          </p>
+          <!--Profile-->
+          <div
+            class="p-2 group flex items-center rounded-lg px-4 duration-300 hover:bg-white cursor-pointer"
+          >
+            <div
+              class="bg-white w-6 h-6 flex group-hover:bg-[#4fd1c5] items-center justify-center rounded-lg"
+            >
+              <i
+                class="fa-solid fa-user fa-xs group-hover:text-white text-[#4fd1c5]"
+              ></i>
+            </div>
+            <span
+              class="tracking-wide text-[10px] ml-3 font-[500] text-[10px] text-custom-gray-light"
+              >Profile</span
+            >
+          </div>
+          <!--Sign in-->
+          <div
+            class="p-2 mt-1 group flex items-center rounded-lg px-4 duration-300 hover:bg-white cursor-pointer"
+          >
+            <div
+              class="bg-white w-6 h-6 flex group-hover:bg-[#4fd1c5] items-center justify-center rounded-lg"
+            >
+              <i
+                class="fa-solid fa-file fa-xs group-hover:text-white text-[#4fd1c5]"
+              ></i>
+            </div>
+            <span
+              class="tracking-wide text-[10px] ml-3 font-[500] text-[10px] text-custom-gray-light"
+              >Sign In</span
+            >
+          </div>
+          <!--Sign up-->
+          <div
+            class="p-2 mt-1 group flex items-center rounded-lg px-4 duration-300 hover:bg-white cursor-pointer"
+          >
+            <div
+              class="bg-white w-6 h-6 flex group-hover:bg-[#4fd1c5] items-center justify-center rounded-lg"
+            >
+              <i
+                class="fa-solid fa-rocket fa-xs group-hover:text-white text-[#4fd1c5]"
+              ></i>
+            </div>
+            <span
+              class="tracking-wide text-[10px] ml-3 font-[500] text-[10px] text-custom-gray-light"
+              >Sign Up</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!--Mainboard-->
+      <div class="flex-auto bg-custom-gray-bg ml-8">
+        <!--Breadscrumb-->
+        <div class="flex flex-col bg-custom-gray-bg ml-3 mt-2">
+          <div class="flex flex-col bg-custom-gray-bg p-2">
+            <div class="flex items-center justify-between">
+              <div class="flex space-x-1">
+                <span class="text-[10px] text-gray-400 font-Roboto">Pages</span>
+                <span class="text-[10px] text-gray-700 font-Roboto"
+                  >/ Content</span
+                >
+              </div>
+
+              <!--menu mainboard-->
+              <div class="flex items-center">
+                <div
+                  class="flex items-center bg-white rounded-xl py-2 px-2 border border-gray-200"
+                >
+                  <i
+                    class="fa-solid fa-magnifying-glass fa-2xs"
+                    style="color: #2d3748"
+                  ></i>
+                  <input
+                    type="text"
+                    placeholder="Type here..."
+                    class="text-[10px] ml-2 w-full bg-transparent text-gray-400"
+                  />
+                </div>
+                <div class="ml-2 mr-4 flex items-center">
+                  <i class="fa-solid fa-user fa-2xs" style="color: #718096"></i>
+                  <span
+                    class="font-Roboto text-[10px] ml-1 font-bold text-gray-500"
+                    >Sign in</span
+                  >
+                  <i
+                    class="fa-solid fa-gear fa-2xs ml-4"
+                    style="color: #718096"
+                  ></i>
+                  <i
+                    class="fa-solid fa-bell fa-2xs ml-4"
+                    style="color: #718096"
+                  ></i>
+                </div>
+              </div>
+            </div>
+            <h4 class="font-bold text-custom-gray-dark text-[12px]">
+              Main Content
+            </h4>
+          </div>
+        </div>
+
+        <!--Main content-->
+        <div
+          class="mt-1 mr-2 px-6 py-4 col-span-2 flex flex-col bg-white rounded-xl shadow-sm h-full"
+        >
+          <div>
+            <h2 class="text-[14px] font-semibold tracking-wide text-gray-800">
+              Today
+            </h2>
+          </div>
+          <div id="totalTaskElement" class="mt-2 ps-2 text-[8px]">
+            0 task <i class="fa-solid fa-check me-2"></i>
+          </div>
+          <div class="list_tab mt-3 ps-3" id="list-task"></div>
+          <div
+            id="taskForm"
+            class="border border-gray-200 rounded-lg p-2 mt-1 ms-2"
+            style="display: none"
+          >
+            <input
+              id="inputTaskname"
+              type="text"
+              class="text-[#2d3748] text-[10px] ms-1 w-full focus:outline-none focus:border-transparent"
+              placeholder="Task name"
+            />
+            <input
+              id="inputDescription"
+              type="text"
+              class="text-custom-gray-content text-[10px] ms-1 mt-2 w-full focus:outline-none focus:border-transparent"
+              placeholder="Description"
+            />
+            <div class="flex mt-3 ms-1">
+              <!--Today-->
+              <div class="relative inline-flex items-center">
+                <i
+                  class="fa-regular fa-calendar fa-sm ml-2 absolute transform"
+                  style="color: #a0aec0"
+                ></i>
+                <input
+                  id="date-picker"
+                  class="peer w-[120px] h-full rounded-lg border border-gray-200 bg-transparent px-8 py-2 text-[10px] text-[#48bb78] transition-all focus:outline-0"
+                  placeholder="Today"
+                />
+                <i
+                  class="fa-solid fa-xmark fa-sm absolute right-3 top-1/2 transform -translate-y-1/2"
+                  style="color: #a0aaec"
+                ></i>
+              </div>
+
+              <!--Priority-->
+              <div
+                class="border border-gray-200 rounded-lg ml-2"
+                id="priorityDiv"
+              >
+                <div class="flex items-center text-gray-400 rounded-lg p-2">
+                  <i
+                    class="fa-regular fa-flag fa-sm"
+                    style="color: #a0aec0"
+                  ></i>
+                  <span class="text ml-2 text-[10px]"> Priority</span>
+                  <!-- Dấu tích được chọn -->
+                  <i
+                    id="selectedPriorityIcon"
+                    class="hidden fa-solid fa-check text-green-500 ml-auto mr-2"
+                  ></i>
+                </div>
+                <div
+                  id="priorityDropdown"
+                  class="hidden absolute bg-white border border-gray-200 rounded-lg shadow-md mt-2"
+                >
+                  <div class="py-1 flex flex-col p-2">
+                    <!-- Option Priority 1 -->
+                    <button class="priorityOption" data-priority="1">
+                      <i
+                        class="fa-solid fa-flag fa-sm"
+                        style="color: #ef4444"
+                      ></i>
+                      <span class="ml-2">Priority 1</span>
+                      <i class="hidden fa-solid fa-check text-green-500"></i>
+                    </button>
+                    <!-- Option Priority 2 -->
+                    <button class="priorityOption" data-priority="2">
+                      <i
+                        class="fa-solid fa-flag fa-sm"
+                        style="color: #f97316"
+                      ></i>
+                      <span class="ml-2">Priority 2</span>
+                      <i class="hidden fa-solid fa-check text-green-500"></i>
+                    </button>
+                    <!-- Option Priority 3 -->
+                    <button class="priorityOption" data-priority="3">
+                      <i
+                        class="fa-solid fa-flag fa-sm"
+                        style="color: #3b82f6"
+                      ></i>
+                      <span class="ml-2">Priority 3</span>
+                      <i class="hidden fa-solid fa-check text-green-500"></i>
+                    </button>
+                    <!-- Option Priority 4 -->
+                    <button class="priorityOption" data-priority="4">
+                      <i
+                        class="fa-solid fa-flag fa-sm"
+                        style="color: #14b8a6"
+                      ></i>
+                      <span class="ml-2">Priority 4</span>
+                      <i class="hidden fa-solid fa-check text-green-500"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <i
+                class="fa-solid fa-ellipsis fa-sm ml-2 mt-4"
+                style="color: #a0aec0"
+              ></i>
+            </div>
+            <hr class="border-gray-200 mt-2 ms-6" />
+            <div class="flex justify-end mt-1">
+              <button
+                id="btnCancel"
+                class="bg-[#a0aec0] text-white text-[10px] p-2 rounded-lg"
+              >
+                Cancel
+              </button>
+              <button
+                id="btnConfirmAddTask"
+                class="bg-[#4fd1c5] text-white text-[10px] p-2 rounded-lg ml-2"
+              >
+                Add Task
+              </button>
+            </div>
+          </div>
+          <div
+            id="addForm"
+            class="ml-1 hover:bg-gray-100 hover:cursor-pointer rounded-lg flex items-center px-2 py-2"
+          >
+            <i class="fa-solid fa-plus fa-2xs text-[#4fd1c5]"></i>
+            <span id="btnAddTask" class="ms-2 text-[10px] font-medium"
+              >Add task</span
+            >
+          </div>
+        </div>
+        <!--modal-->
+      </div>
+      <div id="modal-container">
+        <div id="modal">
+          <div>
+            <div class="head-modal col-span-6 px-4 mt-4">
+              <div class="flex items-center justify-between border-b-2">
+                <h3
+                  class="text-[14px] font-semibold tracking-wide text-gray-800 pb-3 flex items-center"
+                >
+                  Inbox
+                </h3>
+                <div class="flex items-center" style="align-items: baseline">
+                  <i class="fa-solid fa-ellipsis fa-sm" style="color: #000"></i>
+                  <i
+                    id="btnClose"
+                    class="fa-solid fa-xmark fa-sm ml-4"
+                    style="color: #666666"
+                  ></i>
+                </div>
+              </div>
+            </div>
+            <div class="main-modal grid grid-cols-7 gap-4">
+              <!--Left modal-->
+              <div id="left-modal" class="col-span-7 md:col-span-4">
+                <div id="formModal" class="ms-1 border-b-2">
+                  <div class="flex">
+                    <input
+                      type="checkbox"
+                      id="form-checkbox"
+                      class="form-checkbox mt-4 ml-2"
+                    />
+
+                    <!--Edit Table-->
+                    <div id="editableContent" class="ms-2 mt-1 w-full">
+                      <input
+                        id="parentIdTask"
+                        type="text"
+                        hidden
+                        data-parent=""
+                      />
+                      <label
+                        id="modalLabel"
+                        for="form-checkbox"
+                        class="text-[10px] ml-1 focus:outline-none focus:border-transparent"
+                        contenteditable="true"
+                      >
+                        Task 1
+                      </label>
+                      <p
+                        id="modalDes"
+                        class="text-[#8f9eb4] ml-1 pb-2 pt-1 text-[10px] focus:outline-none focus:border-transparent"
+                        contenteditable="true"
+                      >
+                        Description task 1
+                      </p>
+                    </div>
+                  </div>
+                  <div class="mt-1 flex justify-end mb-0">
+                    <button
+                      id="btnEditCancel"
+                      class="bg-[#a0aec0] text-white text-[10px] rounded-md"
+                      style="height: 25px; width: 55px; display: none"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      id="btnSave"
+                      class="bg-[#4fd1c5] text-white text-[10px] rounded-md ml-2"
+                      style="height: 25px; width: 55px; display: none"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+                <div
+                  id="totalSubTask"
+                  class="mt-2 ps-2 text-[9px] ml-5"
+                  style="display: none"
+                ></div>
+                <div class="list_sub_tab mt-3 ps-3" id="list-sub-task"></div>
+                <!--Add table-->
+                <div
+                  id="taskSubForm"
+                  class="border border-gray-200 rounded-lg p-1 mt-1 ml-5"
+                  style="display: none"
+                >
+                  <input
+                    id="inputSubTaskName"
+                    type="text"
+                    class="text-[#2d3748] text-[10px] ms-1 w-full focus:outline-none focus:border-transparent"
+                    placeholder="Subtask name"
+                  />
+                  <input
+                    id="inputSubDescription"
+                    type="text"
+                    class="text-custom-gray-content text-[10px] ms-1 mt-2 w-full focus:outline-none focus:border-transparent"
+                    placeholder="Description"
+                  />
+                  <div class="flex mt-3 ms-1">
+                    <!--Today modal-->
+                    <div class="relative inline-flex items-center">
+                      <i
+                        class="fa-regular fa-calendar fa-sm ml-2 absolute transform"
+                        style="color: #a0aec0"
+                      ></i>
+                      <input
+                        id="date-picker-subtask"
+                        class="peer w-[110px] h-full rounded-lg border border-gray-200 bg-transparent px-8 py-2 text-[10px] text-[#48bb78] transition-all focus:outline-0"
+                        placeholder="Today"
+                      />
+                      <i
+                        class="fa-solid fa-xmark fa-sm absolute right-3 top-1/2 transform -translate-y-1/2"
+                        style="color: #a0aaec"
+                      ></i>
+                    </div>
+                    <!--Priority modal-->
+                    <div
+                      class="border border-gray-200 rounded-lg ml-2"
+                      id="subTaskPriorityDiv"
+                    >
+                      <div
+                        class="flex items-center text-gray-400 rounded-lg p-2"
+                      >
+                        <i
+                          class="fa-regular fa-flag fa-sm"
+                          style="color: #a0aec0"
+                        ></i>
+                        <span class="text ml-2 text-[10px]"> Priority</span>
+                        <!-- Dấu tích được chọn -->
+                        <i
+                          id="subTaskSelectedPriorityIcon"
+                          class="hidden fa-solid fa-check text-green-500 ml-auto mr-2"
+                        ></i>
+                      </div>
+                      <div
+                        id="subTaskPriorityDropdown"
+                        class="hidden absolute bg-white border border-gray-200 rounded-lg shadow-md mt-2"
+                      >
+                        <div class="py-1 flex flex-col p-2">
+                          <!-- Option Priority 1 -->
+                          <button class="priorityOption" data-priority="1">
+                            <i
+                              class="fa-solid fa-flag fa-sm"
+                              style="color: #ef4444"
+                            ></i>
+                            <span class="ml-2">Priority 1</span>
+                            <i
+                              class="hidden fa-solid fa-check text-green-500"
+                            ></i>
+                          </button>
+                          <!-- Option Priority 2 -->
+                          <button class="priorityOption" data-priority="2">
+                            <i
+                              class="fa-solid fa-flag fa-sm"
+                              style="color: #f97316"
+                            ></i>
+                            <span class="ml-2">Priority 2</span>
+                            <i
+                              class="hidden fa-solid fa-check text-green-500"
+                            ></i>
+                          </button>
+                          <!-- Option Priority 3 -->
+                          <button class="priorityOption" data-priority="3">
+                            <i
+                              class="fa-solid fa-flag fa-sm"
+                              style="color: #3b82f6"
+                            ></i>
+                            <span class="ml-2">Priority 3</span>
+                            <i
+                              class="hidden fa-solid fa-check text-green-500"
+                            ></i>
+                          </button>
+                          <!-- Option Priority 4 -->
+                          <button class="priorityOption" data-priority="4">
+                            <i
+                              class="fa-solid fa-flag fa-sm"
+                              style="color: #14b8a6"
+                            ></i>
+                            <span class="ml-2">Priority 4</span>
+                            <i
+                              class="hidden fa-solid fa-check text-green-500"
+                            ></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <i
+                      class="fa-solid fa-ellipsis fa-sm ml-2 mt-4"
+                      style="color: #a0aec0"
+                    ></i>
+                  </div>
+                  <hr class="border-gray-200 mt-2 ms-6" />
+                  <div class="flex justify-end mt-1">
+                    <button
+                      id="btnCancelSubTask"
+                      class="bg-[#a0aec0] text-white text-[10px] rounded-md"
+                      style="height: 25px; width: 55px"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      id="btnConfirmAddSubTask"
+                      class="bg-[#4fd1c5] text-white text-[10px] rounded-md ml-2"
+                      style="height: 25px; width: 55px"
+                    >
+                      Add Task
+                    </button>
+                    <button
+                      id="btnSaveSubTask"
+                      class="bg-[#4fd1c5] text-white text-[10px] rounded-md ml-2"
+                      style="height: 25px; width: 55px; display: none"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+
+                <!--Add sub tasks-->
+                <div
+                  id="addSubTask"
+                  class="hover:bg-gray-100 hover:cursor-pointer rounded-lg flex items-center px-2 py-2 ml-1"
+                >
+                  <i class="fa-solid fa-plus fa-2xs text-[#4fd1c5]"></i>
+                  <span id="btnAddSubTask" class="ms-2 text-[10px] font-medium"
+                    >Add sub task</span
+                  >
+                </div>
+              </div>
+
+              <!--Right modal-->
+              <div
+                id="backdrop"
+                class="col-span-7 md:col-span-3 mt-1"
+                style="height: 755px; margin-left: 30px"
+              >
+                <div class="bg-gray-100 p-1 h-full overflow-y-auto">
+                  <!--Project-->
+                  <div>
+                    <span class="ms-2 font-bold text-[10px] font-medium"
+                      >Project</span
+                    >
+                    <div class="flex ms-2 mt-2">
+                      <img
+                        src="./public/images/MdMoveToInbox.png"
+                        alt="MdMoveToInbox"
+                        style="width: 15px; height: 15px"
+                      />
+                      <label class="text-[10px] ml-2"> Inbox</label>
+                    </div>
+                  </div>
+                  <hr class="ml-3 mt-2 border-b-1 mr-3" />
+
+                  <!--Due date-->
+                  <div class="mr-4">
+                    <span class="ms-2 font-bold text-[10px] font-medium"
+                      >Due date</span
+                    >
+                    <div
+                      id="datePickerContainer"
+                      class="flex items-center ms-2 rounded-lg p-1 mt-1"
+                    >
+                      <i class="fa-regular fa-calendar fa-sm"></i>
+                      <input
+                        id="date-picker-subtask2"
+                        class="peer w-full text-[10px] bg-transparent ml-2 focus:outline-none"
+                        placeholder="Today"
+                      />
+                      <button
+                        id="clearDateBtn"
+                        class="hidden mr-2 focus:outline-none"
+                      >
+                        <i
+                          class="fa-solid fa-times fa-xs"
+                          style="color: #666666"
+                        ></i>
+                      </button>
+                    </div>
+                  </div>
+                  <hr class="ml-3 mt-2 border-b-1 mr-3" />
+
+                  <!--Priority modal-->
+                  <div class="mr-4">
+                    <span class="ms-2 font-bold text-[10px] font-medium"
+                      >Priority</span
+                    >
+                    <div class="rounded-lg ml-2 mt-1" id="subTaskPriorityDiv2">
+                      <div class="flex items-center rounded-lg p-1">
+                        <i
+                          class="fa-regular fa-flag fa-sm"
+                          style="color: #2d3748"
+                        ></i>
+                        <span class="text ml-2 text-[10px]"> Priority</span>
+                        <button
+                          id="chervondown"
+                          class="hidden ml-auto mr-2 focus:outline-none"
+                        >
+                          <i
+                            class="fa-solid fa-chevron-down fa-xs"
+                            style="color: #000"
+                          ></i>
+                        </button>
+                      </div>
+                      <div
+                        id="subTaskPriorityDropdown2"
+                        class="hidden absolute bg-white border border-gray-200 rounded-lg shadow-md mt-2"
+                      >
+                        <div class="py-1 flex flex-col p-2">
+                          <!-- Option Priority 1 -->
+                          <button class="priorityOption" data-priority="1">
+                            <i
+                              class="fa-solid fa-flag fa-sm"
+                              style="color: #ef4444"
+                            ></i>
+                            <span class="ml-2">Priority 1</span>
+                          </button>
+                          <!-- Option Priority 2 -->
+                          <button class="priorityOption" data-priority="2">
+                            <i
+                              class="fa-solid fa-flag fa-sm"
+                              style="color: #f97316"
+                            ></i>
+                            <span class="ml-2">Priority 2</span>
+                          </button>
+                          <!-- Option Priority 3 -->
+                          <button class="priorityOption" data-priority="3">
+                            <i
+                              class="fa-solid fa-flag fa-sm"
+                              style="color: #3b82f6"
+                            ></i>
+                            <span class="ml-2">Priority 3</span>
+                          </button>
+                          <!-- Option Priority 4 -->
+                          <button class="priorityOption" data-priority="4">
+                            <i
+                              class="fa-solid fa-flag fa-sm"
+                              style="color: #14b8a6"
+                            ></i>
+                            <span class="ml-2">Priority 4</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="ml-3 mt-2 border-b-1 mr-3" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="./public/js/javascript.js"></script>
+    <script>
+      function initializeFlatpickr(datePickerId) {
+        const datepicker = flatpickr(`#${datePickerId}`, {
+          dateFormat: "d M Y",
+          onChange: function (selectedDates, dateStr, instance) {
+            const selectedDate = new Date(dateStr);
+            const today = new Date();
+
+            const datePickerInput = document.getElementById(datePickerId);
+            if (
+              selectedDate.getDate() === today.getDate() &&
+              selectedDate.getMonth() === today.getMonth() &&
+              selectedDate.getFullYear() === today.getFullYear()
+            ) {
+              datePickerInput.value = "Today";
+              datePickerInput.style.color =
+                datePickerId === "date-picker-subtask2" ? "#2D3748" : "#48bb78";
+            } else {
+              datePickerInput.value = "Due date";
+              datePickerInput.style.color =
+                datePickerId === "date-picker-subtask2" ? "#2D3748" : "#a0aec0";
+            }
+          },
+        });
+
+        // styling the date picker
+        const calendarContainer = datepicker.calendarContainer;
+        const calendarMonthNav = datepicker.monthNav;
+        const calendarNextMonthNav = datepicker.nextMonthNav;
+        const calendarPrevMonthNav = datepicker.prevMonthNav;
+        const calendarDaysContainer = datepicker.daysContainer;
+
+        calendarContainer.className = `${calendarContainer.className} bg-white p-4 border border-blue-gray-50 rounded-lg shadow-lg shadow-blue-gray-500/10 font-sans text-sm font-normal text-gray-900 focus:outline-none break-words whitespace-normal`;
+
+        calendarMonthNav.className = `${calendarMonthNav.className} flex items-center justify-between text-[12px] [&>div.flatpickr-month]:-translate-y-0`;
+
+        calendarNextMonthNav.className = `${calendarNextMonthNav.className} absolute !top-2 !right-1 h-4 w-4 bg-transparent hover:bg-blue-gray-50 !p-1 rounded-md transition-colors duration-300`;
+
+        calendarPrevMonthNav.className = `${calendarPrevMonthNav.className} absolute !top-2 !left-1 h-4 w-4 bg-transparent hover:bg-blue-gray-50 !p-1 rounded-md transition-colors duration-300`;
+
+        calendarDaysContainer.className = `${calendarDaysContainer.className} [&_span.flatpickr-day]:!rounded-md [&_span.flatpickr-day.selected]:!bg-custom-green-calendar [&_span.flatpickr-day.selected]:!border-custom-green-calendar`;
+      }
+
+      // Gọi hàm initializeFlatpickr với ID của phần tử cụ thể
+      initializeFlatpickr("date-picker");
+      initializeFlatpickr("date-picker-subtask");
+      initializeFlatpickr("date-picker-subtask2");
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </body>
+</html>
