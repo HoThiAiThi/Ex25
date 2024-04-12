@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const taskSubForm = document.getElementById("taskSubForm");
   const addSubTask = document.getElementById("addSubTask");
   const inputSubTaskname = document.getElementById("inputSubTaskName");
+  const inputIdSubTask = document.getElementById("inputIdSubTask");
+  const inputParentIdSubTask = document.getElementById("inputParentIdSubTask");
   const inputSubDescription = document.getElementById("inputSubDescription");
   const totalSubTask = document.getElementById("totalSubTask");
   const list_sub_task = document.getElementById("list-sub-task");
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loadFromLocalStorage();
 
-  // Hàm để lưu dữ liệu vào localStorage 
+  // Hàm để lưu dữ liệu vào localStorage
   function saveToLocalStorage() {
     localStorage.setItem("arrayListTasks", JSON.stringify(arrayListTasks));
   }
@@ -42,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tasksFromLocalStorage = JSON.parse(
       localStorage.getItem("arrayListTasks")
     );
-    if (tasksFromLocalStorage) {     
+    if (tasksFromLocalStorage) {
       arrayListTasks = tasksFromLocalStorage;
       renderNewTask();
     }
@@ -68,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
     arrayNewListTask.forEach((item) => {
       const newTaskHTML = createTaskHTML(
         item.id,
+        null,
         item.name,
         item.description,
         false
@@ -91,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         const taskItem =
           this.parentElement.parentElement.parentElement.parentElement;
-        const taskId = taskItem.dataset.task; 
+        const taskId = taskItem.dataset.task;
 
         // Xóa task khỏi mảng arrayListTasks
         arrayListTasks = arrayListTasks.filter(
@@ -178,9 +181,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Hàm để tạo HTML cho một task
-  function createTaskHTML(id, taskName, description, addToModal = false) {
+  function createTaskHTML(
+    id,
+    parentId,
+    taskName,
+    description,
+    addToModal = false
+  ) {
     let taskHTML = `
-            <div id="item-${id}" class="itemTask flex items-start pb-2 border-b-2 w-full" data-task="${id}">
+            <div id="item-${id}" class="itemTask flex items-start pb-2 border-b-2 w-full" data-task="${id}" ${
+      parentId ? `data-parent="${parentId}"` : ""
+    }>
               <input type="checkbox" class="form-checkbox mt-2 rounded-full w-5 h-5">
               <div class="task-item flex-grow ms-3">
                   <input type="checkbox" id="valueParent" value="${id}" data-parent="${id}" hidden>
@@ -194,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   </ul>
               </div>
                 <div class="flex justify-end mt-3">
-                    <i class="fa-solid fa-ellipsis-vertical fa-xs" style="color: #a0aec0;"></i>
+                    <i class="fa-solid fa-ellipsis-vertical fa-xs " style="color: #a0aec0;"></i>
                 </div>
             </div>
       `;
@@ -332,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Lấy thông tin của task từ mảng arrayListTasks
     const currentItem = arrayListTasks.find((task) => task.id == taskId);
-    
+
     if (currentItem) {
       // Lưu nội dung ban đầu của task
       originalContent.label = currentItem.name;
@@ -356,7 +367,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Sự kiện click vào nút "Save"
   btnSave.addEventListener("click", function () {
     // Lấy id của task đang chỉnh sửa
-    const taskId = modalContainer.dataset.task;   
+    const taskId = modalContainer.dataset.task;
 
     // Lấy nội dung mới của task từ form
     const newTaskName = modalLabel.innerText;
@@ -367,11 +378,13 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".task-item p").textContent = newDescription;
 
     // Tìm task tương ứng trong mảng arrayListTasks và cập nhật nội dung mới
-    const taskToUpdate = arrayListTasks.find((task) => task.id.toString() === taskId.toString());   
+    const taskToUpdate = arrayListTasks.find(
+      (task) => task.id.toString() === taskId.toString()
+    );
 
     if (taskToUpdate) {
-        taskToUpdate.name = newTaskName;
-        taskToUpdate.description = newDescription;
+      taskToUpdate.name = newTaskName;
+      taskToUpdate.description = newDescription;
     }
 
     // Lưu thay đổi vào localStorage
@@ -380,7 +393,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ẩn các nút Cancel và Save sau khi đã lưu
     toggleButtons(false);
   });
-
 
   // hiển thị và ẩn form add sub task
   btnAddSubTask.addEventListener("click", function () {
@@ -400,12 +412,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const subDescription = inputSubDescription.value;
     const parentId = modalContainer.dataset.task;
     const subDuedate = datePickerInput.value;
-    console.log(subDuedate)
     const subPriority = selectedSubtaskPriority;
-    console.log(subPriority)
 
     if (subTaskName.trim() !== "" && subDescription.trim() !== "") {
       var itemSubTab = {
+        id: Math.ceil(Math.random() * 9000 + 1000),
         parentId: parentId,
         name: subTaskName,
         description: subDescription,
@@ -450,6 +461,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (filterItems && filterItems.subTask) {
       filterItems.subTask.forEach((itemTask) => {
         const newTaskHTML = createTaskHTML(
+          itemTask.id,
           itemTask.parentId,
           itemTask.name,
           itemTask.description,
@@ -474,13 +486,14 @@ document.addEventListener("DOMContentLoaded", function () {
       ".list_sub_tab .update-task"
     );
 
+    const subtaskListContainer = document.querySelector(".list_sub_tab");
     updateButtons.forEach((button) => {
       button.addEventListener("click", function (event) {
         event.stopPropagation();
-        const taskItem = this.closest(".flex").querySelector(".task-item");
+        const taskItem = this.closest(".itemTask");
         if (taskItem) {
           // Ẩn subtask list
-          const subtaskListContainer = this.closest(".list_sub_tab");
+
           subtaskListContainer.style.display = "none";
 
           // Ẩn tất cả các dropdown menu
@@ -489,124 +502,100 @@ document.addEventListener("DOMContentLoaded", function () {
             menu.classList.add("hidden");
           });
 
-          const label = taskItem.querySelector("label");
-          const description = taskItem.querySelector("p");
+          let idSubItem = taskItem.dataset.task;
+          let idParentSubItem = taskItem.dataset.parent;
 
-          if (label && description) {
-            // Lấy nội dung của task và hiển thị trong subtaskform
-            inputSubTaskname.value = label.textContent;
-            inputSubDescription.value = description.textContent;
+          const findParentTask = arrayListTasks.find(
+            (task) => task.id == idParentSubItem
+          );
+          const findChildrenTask = findParentTask.subTask.find(
+            (task) => task.id == idSubItem
+          );
 
-            // Hiển thị subtaskform và ẩn task-item
-            taskSubForm.style.display = "block";
-            addSubTask.style.display = "none";
-            btnConfirmAddSubTask.style.display = "none";
-            btnSaveSubTask.style.display = "block";
-          }
+          inputIdSubTask.value = idSubItem;
+          inputParentIdSubTask.value = idParentSubItem;
+          inputSubTaskname.value = findChildrenTask["name"];
+          inputSubDescription.value = findChildrenTask["description"];
 
-          // Xử lý sự kiện click vào nút "Save" trong subtask form
-          btnSaveSubTask.addEventListener("click", function () {
-            const subTaskLabel = taskItem.querySelector("label");
-            const subTaskDescription = taskItem.querySelector("p");
-            const subTaskDuedate = datePickerInput.value;
-            const subTaskPriority = selectedSubtaskPriority;
-            // console.log(subTaskDuedate)
-            // console.log(subTaskPriority)
-            // Cập nhật nội dung của subtask trên giao diện
-            subTaskLabel.textContent = inputSubTaskname.value;
-            subTaskDescription.textContent = inputSubDescription.value;
-
-            // Tìm subtask tương ứng trong mảng arraySubListTasks và cập nhật nội dung
-            const parentId = taskItem.querySelector("#valueParent").value;
-            // console.log(parentId)
-            const subTaskName = subTaskLabel.textContent;
-            // console.log(subTaskName)
-            // console.log(arrayListTasks)
-            // console.log(arraySubListTasks)
-            const subTaskToUpdate = arraySubListTasks.find(
-              (item) => item.parentId === parentId && item.name === subTaskName
-            );     
-            // console.log(subTaskToUpdate)     
-            if (subTaskToUpdate) {
-              subTaskToUpdate.name = inputSubTaskname.value;
-              subTaskToUpdate.description = inputSubDescription.value;
-              subTaskToUpdate.duedate = subTaskDuedate; 
-              subTaskToUpdate.priority = subTaskPriority; 
-            }
-
-            const parentTask = arrayListTasks.find(
-              (task) => task.id === parentId
-            );
-            if (parentTask) {
-              const subTask = parentTask.subTask.find(
-                (task) => task.name === subTaskName
-              );
-              if (subTask) {
-                subTask.name = inputSubTaskname.value;
-                subTask.description = inputSubDescription.value;
-                subTask.duedate = subDuedate.value; 
-                subTask.priority = subPriority.value; 
-              }
-            }
-
-            // Hiển thị lại giao diện
-            taskSubForm.style.display = "none";
-            addSubTask.style.display = "block";
-            btnConfirmAddSubTask.style.display = "inline-block";
-            btnSaveSubTask.style.display = "none";
-            subtaskListContainer.style.display = "block";
-            inputSubTaskname.value = "";
-            inputSubDescription.value = "";
-           
-            saveToLocalStorage();
-          });
-
-          // Xử lý sự kiện click vào nút "Cancel" trong subtask form
-          btnCancelSubTask.addEventListener("click", function () {
-            taskSubForm.style.display = "none";
-            addSubTask.style.display = "block";
-            btnConfirmAddSubTask.style.display = "inline-block";
-            btnSaveSubTask.style.display = "none";
-            subtaskListContainer.style.display = "block";
-            inputSubTaskname.value = "";
-            inputSubDescription.value = "";
-            saveToLocalStorage();
-          });
+          // Hiển thị subtaskform và ẩn task-item
+          taskSubForm.style.display = "block";
+          addSubTask.style.display = "none";
+          btnConfirmAddSubTask.style.display = "none";
+          btnSaveSubTask.style.display = "block";
         }
       });
     });
 
+    // Xử lý sự kiện click vào nút "Save" trong subtask form
+    btnSaveSubTask.addEventListener("click", function () {
+      const subId = inputIdSubTask.value;
+      const subParentId = inputParentIdSubTask.value;
+      const subTaskName = inputSubTaskname.value;
+      const subDescription = inputSubDescription.value;
+      const subDuedate = datePickerInput.value;
+      const subPriority = selectedSubtaskPriority;
+
+      const findParentTask = arrayListTasks.find(
+        (task) => task.id == subParentId
+      );
+      const findChildrenTask = findParentTask.subTask.find(
+        (task) => task.id == subId
+      );
+      findChildrenTask["name"] = subTaskName;
+      findChildrenTask["description"] = subDescription;
+      findChildrenTask["duedate"] = subDuedate;
+      findChildrenTask["priority"] = subPriority;
+      renderSubTask(subParentId);
+      // Hiển thị lại giao diện
+      taskSubForm.style.display = "none";
+      addSubTask.style.display = "block";
+      btnConfirmAddSubTask.style.display = "inline-block";
+      btnSaveSubTask.style.display = "none";
+      subtaskListContainer.style.display = "block";
+
+      saveToLocalStorage();
+    });
+
+    // Xử lý sự kiện click vào nút "Cancel" trong subtask form
+    btnCancelSubTask.addEventListener("click", function () {
+      taskSubForm.style.display = "none";
+      addSubTask.style.display = "block";
+      btnConfirmAddSubTask.style.display = "inline-block";
+      btnSaveSubTask.style.display = "none";
+      subtaskListContainer.style.display = "block";
+      inputSubTaskname.value = "";
+      inputSubDescription.value = "";
+      saveToLocalStorage();
+    });
+
     //xoa sub task
     const deleteTaskButtons = document.querySelectorAll(".delete-task");
-      deleteTaskButtons.forEach(function (button) {
-        button.addEventListener("click", function (event) {
-          event.preventDefault();
-          const taskItem =
-            this.parentElement.parentElement.parentElement.parentElement;
-          const parentId = taskItem.querySelector("#valueParent").value;
-          // console.log(parentId)
-          const subTaskName = taskItem.querySelector("label").textContent;
-          // console.log(subTaskName)
-          // console.log(arrayListTasks)
+    deleteTaskButtons.forEach(function (button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        const taskItem = this.closest(".itemTask");
+        const subId = taskItem.getAttribute("data-task");
+        const subParentId = taskItem.getAttribute("data-parent");
 
-          // console.log(arraySubListTasks)
-          // Xóa subtask khỏi mảng arraySubListTasks
-          arraySubListTasks = arraySubListTasks.filter(function (item) {
-            return !(item.parentId == parentId && item.name == subTaskName);
-          });          
+        arraySubListTasks = arraySubListTasks.filter(
+          (item) => item.id != subId
+        );
 
-          saveToLocalStorage();
+        // Tìm parent task
+        const parentTask = arrayListTasks.find(
+          (task) => task.id == subParentId
+        );
 
-        // Xóa subtask khỏi mảng arrayListTasks
-        const parentTask = arrayListTasks.find((task) => task.id == parentId);
+        // Kiểm tra xem parent task có tồn tại không
         if (parentTask) {
+          // Xóa subtask khỏi mảng subTask của parent task
           parentTask.subTask = parentTask.subTask.filter(
-            (task) => task.name !== subTaskName
+            (task) => task.id != subId
           );
           saveToLocalStorage();
         }
 
-        // Xóa subtask khỏi giao diện
+        // Xóa khỏi giao diện
         taskItem.remove();
         updateTotalSubTasks();
         totalSubTask.style.display = "block";
@@ -742,7 +731,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Datepicker Modal
   const dueDateInput = document.getElementById("date-picker");
-  
 
   function resetDatepicker(datePickerId) {
     const datePickerInput = document.getElementById(datePickerId);
@@ -858,7 +846,6 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
     }
     toggleSubtaskPriorityDropdown();
-    
   }
 
   // Priority SubTask Modal
